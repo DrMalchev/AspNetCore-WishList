@@ -37,7 +37,6 @@ namespace WishList
             //2. Replace app.Run with app.UseRouting
             app.UseRouting();
 
-            //3. Add UseEndpoints
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
             
         }
