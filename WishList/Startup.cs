@@ -17,15 +17,27 @@ namespace WishList
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // 1. AddMvc as a servce
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.Run(async (context) =>
+            //4. Add exception handline
+            if (env.IsDevelopment())
             {
-                await context.Response.WriteAsync("Hello World!");
-            });
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            //2. Replace app.Run with app.UseRouting
+            app.UseRouting();
+            //3. Add UseEndpoints
+            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+            
         }
     }
 }
